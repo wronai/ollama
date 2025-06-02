@@ -17,7 +17,7 @@ This repository contains scripts for setting up Ollama as a network service and 
 
 ## 🔍 Overview
 
-### Ollama Network Service (`serve_ollama.sh`)
+### Ollama Network Service (`ollama.sh`)
 Automatically configures Ollama to serve across your entire network, making AI models accessible from any device on your local network. Features include:
 
 - 🌐 Network-wide accessibility
@@ -37,7 +37,7 @@ Fixes common SSH authentication issues and automatically manages SSH keys:
 
 ## 📁 Scripts
 
-### `serve_ollama.sh`
+### `ollama.sh`
 Main script for setting up Ollama network service.
 
 **Key Features:**
@@ -62,19 +62,19 @@ SSH connection script with automatic key management.
 
 ```bash
 # Make executable
-chmod +x serve_ollama.sh
+chmod +x ollama.sh
 
 # Start with default settings (port 11434)
-./serve_ollama.sh
+./ollama.sh
 
 # Start on custom port
-./serve_ollama.sh -p 8081
+./ollama.sh -p 8081
 
 # Test the service
-./serve_ollama.sh --test
+./ollama.sh --test
 
 # View API examples
-./serve_ollama.sh --examples
+./ollama.sh --examples
 ```
 
 ### Service Management
@@ -109,14 +109,14 @@ curl http://192.168.1.100:11434/api/tags
 
 | Command | Description |
 |---------|-------------|
-| `./serve_ollama.sh` | Start service with default settings |
-| `./serve_ollama.sh -p PORT` | Start on specific port |
-| `./serve_ollama.sh --stop` | Stop the service |
-| `./serve_ollama.sh --status` | Show service status |
-| `./serve_ollama.sh --test` | Run comprehensive tests |
-| `./serve_ollama.sh --examples` | Show API usage examples |
-| `./serve_ollama.sh --install-model` | Install DeepSeek Coder model |
-| `./serve_ollama.sh --logs` | View service logs |
+| `./ollama.sh` | Start service with default settings |
+| `./ollama.sh -p PORT` | Start on specific port |
+| `./ollama.sh --stop` | Stop the service |
+| `./ollama.sh --status` | Show service status |
+| `./ollama.sh --test` | Run comprehensive tests |
+| `./ollama.sh --examples` | Show API usage examples |
+| `./ollama.sh --install-model` | Install DeepSeek Coder model |
+| `./ollama.sh --logs` | View service logs |
 
 ## 🔐 SSH Connection Script
 
@@ -163,13 +163,13 @@ chmod +x ssh.sh
 
 1. **Download scripts:**
 ```bash
-wget https://your-repo/serve_ollama.sh
+wget https://your-repo/ollama.sh
 wget https://your-repo/ssh.sh
 ```
 
 2. **Make executable:**
 ```bash
-chmod +x serve_ollama.sh ssh.sh
+chmod +x ollama.sh ssh.sh
 ```
 
 3. **Install Ollama (if needed):**
@@ -179,7 +179,7 @@ curl -fsSL https://ollama.ai/install.sh | sh
 
 4. **Run setup:**
 ```bash
-./serve_ollama.sh
+./ollama.sh
 ```
 
 ## 📚 Usage Examples
@@ -452,15 +452,15 @@ df -h ~/.ollama/models/
 ### Getting Help
 
 1. **Check logs:** `sudo journalctl -u ollama-network -f`
-2. **Test connectivity:** `./serve_ollama.sh --test`
-3. **View examples:** `./serve_ollama.sh --examples`
+2. **Test connectivity:** `./ollama.sh --test`
+3. **View examples:** `./ollama.sh --examples`
 4. **Check service status:** `sudo systemctl status ollama-network`
 
 ### Useful Commands
 
 ```bash
 # Complete system status
-./serve_ollama.sh --test
+./ollama.sh --test
 
 # View all running services
 systemctl list-units --type=service --state=running | grep ollama
