@@ -1,5 +1,7 @@
 # 🚀 Ollama on Embedded Systems
 
+![img.png](img.png)
+
 *Serve Ollama on embedded without pain*
 
 This repository provides tools and scripts for running Ollama on embedded systems and local networks with minimal setup. Includes solutions for network service configuration and SSH connection management with automatic key generation.
