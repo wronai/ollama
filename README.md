@@ -11,18 +11,23 @@ This repository provides tools and scripts for running Ollama on embedded system
 ## 🔥 Quick Start
 
 ```bash
-# Download scripts
+# Download all scripts
 wget https://raw.githubusercontent.com/wronai/ollama/main/ollama.sh
 wget https://raw.githubusercontent.com/wronai/ollama/main/ssh.sh
+wget https://raw.githubusercontent.com/wronai/ollama/main/monitor.sh
+wget https://raw.githubusercontent.com/wronai/ollama/main/test.sh
 
 # Make executable
-chmod +x ollama.sh ssh.sh
+chmod +x *.sh
 
 # Start Ollama network service
 ./ollama.sh
 
 # Connect to remote server with automatic SSH key setup
 ./ssh.sh root@192.168.1.100
+
+# Monitor system performance in real-time
+./monitor.sh
 ```
 
 ## 📋 Table of Contents
@@ -56,6 +61,17 @@ Fixes common SSH authentication issues and automatically manages SSH keys:
 - 🛠️ Fixes "Too many authentication failures" errors
 - 🔄 Multiple authentication fallback methods
 
+### Real-time System Monitor (`monitor.sh`)
+Advanced ASCII-based system monitoring tool with beautiful visualizations:
+
+- ⚡ **CPU Monitoring**: Overall usage with color-coded indicators
+- 💾 **Memory Tracking**: RAM usage in MB/GB with percentage
+- 🌡️ **Temperature Monitoring**: All thermal sensors with warnings
+- 💿 **Disk I/O Tracking**: Real-time read/write speeds across all storage devices
+- 📈 **Historical Data**: Sparkline graphs showing trends over time
+- 🎨 **ASCII Graphics**: Beautiful progress bars and color-coded displays
+- 📱 **Responsive Design**: Adapts to any terminal width
+
 ## 📁 Scripts
 
 ### `ollama.sh`
@@ -76,6 +92,17 @@ SSH connection script with automatic key management.
 - Copies keys to remote hosts automatically
 - Handles authentication failures gracefully
 - Multiple fallback authentication methods
+
+### `monitor.sh`
+Real-time ASCII system monitoring tool.
+
+**Key Features:**
+- CPU, Memory, Temperature, and Disk I/O monitoring
+- Beautiful ASCII progress bars and sparkline graphs
+- Color-coded status indicators (Green/Yellow/Red)
+- Historical data visualization
+- Cross-platform compatibility (ARM/x86)
+- Responsive terminal layout
 
 ## 🌐 Ollama Network Service
 
@@ -165,6 +192,75 @@ chmod +x ssh.sh
 - `~/.ssh/id_ed25519` - Private key
 - `~/.ssh/id_ed25519.pub` - Public key
 
+## 📊 Real-time System Monitor
+
+### Quick Start
+
+```bash
+# Make executable
+chmod +x monitor.sh
+
+# Start monitoring
+./monitor.sh
+
+# Exit with Ctrl+C or press 'q'
+```
+
+### Display Sections
+
+#### ⚡ CPU Usage
+```
+⚡ CPU Usage: 25%
+  Overall: ███████░░░░░░░░░░░░░░ [25%]
+  History: ▁▂▃▄▅▆▇█▇▆▅▄▃▂▁▂▃▄▅▆
+```
+
+#### 💾 Memory Usage
+```
+💾 Memory Usage: 45% (3584MB / 7928MB)
+  Usage:   ███████████░░░░░░░░░ [45%]
+  History: ▃▄▅▄▃▄▅▆▅▄▃▄▅▄▃▄▅▄▃▄
+```
+
+#### 🌡️ Temperature Monitoring
+```
+🌡️ Temperature: 42°C (38°C 41°C 42°C 39°C)
+  Current: ████████░░░░░░░░░░░░ [42°C]
+  History: ▃▃▄▄▅▅▄▄▃▃▄▄▅▅▆▆▅▅▄▄
+```
+
+#### 💿 Disk I/O Tracking
+```
+💿 Disk I/O: Read: 15.2MB/s Write: 8.7MB/s
+  Read:    ████████████░░░░░░░░ [15.2MB/s]
+  Write:   ██████░░░░░░░░░░░░░░ [8.7MB/s]
+  R.Hist:  ▁▂▃▄▅▆▇▆▅▄▃▂▁▂▃▄▅▆▇▆
+  W.Hist:  ▁▁▂▂▃▃▄▄▅▅▄▄▃▃▂▂▁▁▂▂
+```
+
+### Color Scheme
+- 🟢 **Green**: Good (0-30% usage, < 50°C)
+- 🟡 **Yellow**: Warning (30-70% usage, 50-70°C)
+- 🔴 **Red**: Critical (70%+ usage, > 70°C)
+
+### Performance Testing
+Generate system load for testing the monitor:
+
+```bash
+# CPU stress test
+stress --cpu 4 --timeout 30s
+
+# Memory stress test  
+stress --vm 2 --vm-bytes 1G --timeout 30s
+
+# Disk I/O test
+dd if=/dev/zero of=/tmp/test bs=1M count=500
+sudo hdparm -t /dev/mmcblk0
+
+# Temperature monitoring during load
+# Monitor will show real-time changes in all metrics
+```
+
 ## 🛠️ Installation
 
 ### Prerequisites
@@ -180,6 +276,12 @@ chmod +x ssh.sh
 - ssh-keygen utility
 - ssh-copy-id utility
 
+**For System Monitor:**
+- Linux system with /proc and /sys filesystems
+- Bash 4.0+
+- Unicode-capable terminal
+- 256-color terminal support (recommended)
+
 ### One-Line Installation
 
 ```bash
@@ -193,6 +295,7 @@ curl -fsSL https://raw.githubusercontent.com/wronai/ollama/main/install.sh | bas
 ```bash
 wget https://raw.githubusercontent.com/wronai/ollama/main/ollama.sh
 wget https://raw.githubusercontent.com/wronai/ollama/main/ssh.sh
+wget https://raw.githubusercontent.com/wronai/ollama/main/monitor.sh
 ```
 
 2. **Make executable:**
@@ -205,9 +308,16 @@ chmod +x ollama.sh ssh.sh
 curl -fsSL https://ollama.ai/install.sh | sh
 ```
 
-4. **Run setup:**
+4. **Run scripts:**
 ```bash
+# Start Ollama network service
 ./ollama.sh
+
+# Connect to remote server
+./ssh.sh user@hostname
+
+# Monitor system performance
+./monitor.sh
 ```
 
 ### Alternative Download Methods
@@ -216,6 +326,7 @@ curl -fsSL https://ollama.ai/install.sh | sh
 # Using curl
 curl -O https://raw.githubusercontent.com/wronai/ollama/main/ollama.sh
 curl -O https://raw.githubusercontent.com/wronai/ollama/main/ssh.sh
+curl -O https://raw.githubusercontent.com/wronai/ollama/main/monitor.sh
 
 # Clone entire repository
 git clone https://github.com/wronai/ollama.git
@@ -493,26 +604,46 @@ df -h ~/.ollama/models/
 ### Getting Help
 
 1. **GitHub Issues:** https://github.com/wronai/ollama/issues
-2. **Check logs:** `sudo journalctl -u ollama-network -f`
-3. **Test connectivity:** `./ollama.sh --test`
-4. **View examples:** `./ollama.sh --examples`
-5. **Check service status:** `sudo systemctl status ollama-network`
+2. **Check Ollama logs:** `sudo journalctl -u ollama-network -f`
+3. **Test Ollama connectivity:** `./ollama.sh --test`
+4. **View Ollama examples:** `./ollama.sh --examples`
+5. **Check Ollama service status:** `sudo systemctl status ollama-network`
+6. **System monitor troubleshooting:**
+   ```bash
+   # Check terminal capabilities
+   echo $TERM
+   tput cols; tput lines
+   
+   # Test system access
+   cat /proc/stat | head -5
+   ls /sys/class/thermal/
+   cat /proc/diskstats | head -5
+   ```
 
 ### Useful Commands
 
 ```bash
-# Complete system status
+# Complete system status check
 ./ollama.sh --test
+./monitor.sh &  # Start monitor in background
 
 # View all running services
 systemctl list-units --type=service --state=running | grep ollama
 
-# Check network configuration
+# Check network configuration for Ollama
 ip addr show
 ss -tlnp | grep ollama
 
 # Monitor real-time logs
 tail -f /var/log/syslog | grep ollama
+
+# System performance baseline
+# Terminal 1: Start monitoring
+./monitor.sh
+
+# Terminal 2: Generate test load
+stress --cpu 2 --vm 1 --vm-bytes 500M --timeout 60s
+sudo hdparm -t /dev/mmcblk0
 ```
 
 ---
