@@ -163,8 +163,8 @@ chmod +x ssh.sh
 
 1. **Download scripts:**
 ```bash
-wget https://your-repo/ollama.sh
-wget https://your-repo/ssh.sh
+wget https://wronai/ollama.sh
+wget https://wronai/ssh.sh
 ```
 
 2. **Make executable:**
