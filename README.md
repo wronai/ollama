@@ -1,8 +1,27 @@
-# 🚀 Start Ollama Network Service & SSH Scripts
+# 🚀 Ollama on Embedded Systems
 
-This repository contains scripts for setting up Ollama as a network service and managing SSH connections with automatic key generation and copying.
+*Serve Ollama on embedded without pain*
 
-*serve ollama on embedded without pain*
+This repository provides tools and scripts for running Ollama on embedded systems and local networks with minimal setup. Includes solutions for network service configuration and SSH connection management with automatic key generation.
+
+**GitHub Repository:** https://github.com/wronai/ollama/
+
+## 🔥 Quick Start
+
+```bash
+# Download scripts
+wget https://raw.githubusercontent.com/wronai/ollama/main/ollama.sh
+wget https://raw.githubusercontent.com/wronai/ollama/main/ssh.sh
+
+# Make executable
+chmod +x ollama.sh ssh.sh
+
+# Start Ollama network service
+./ollama.sh
+
+# Connect to remote server with automatic SSH key setup
+./ssh.sh root@192.168.1.100
+```
 
 ## 📋 Table of Contents
 
@@ -159,12 +178,19 @@ chmod +x ssh.sh
 - ssh-keygen utility
 - ssh-copy-id utility
 
-### Installation Steps
+### One-Line Installation
+
+```bash
+# Download and setup everything
+curl -fsSL https://raw.githubusercontent.com/wronai/ollama/main/install.sh | bash
+```
+
+### Manual Installation
 
 1. **Download scripts:**
 ```bash
-wget https://wronai/ollama.sh
-wget https://wronai/ssh.sh
+wget https://raw.githubusercontent.com/wronai/ollama/main/ollama.sh
+wget https://raw.githubusercontent.com/wronai/ollama/main/ssh.sh
 ```
 
 2. **Make executable:**
@@ -180,6 +206,19 @@ curl -fsSL https://ollama.ai/install.sh | sh
 4. **Run setup:**
 ```bash
 ./ollama.sh
+```
+
+### Alternative Download Methods
+
+```bash
+# Using curl
+curl -O https://raw.githubusercontent.com/wronai/ollama/main/ollama.sh
+curl -O https://raw.githubusercontent.com/wronai/ollama/main/ssh.sh
+
+# Clone entire repository
+git clone https://github.com/wronai/ollama.git
+cd ollama
+chmod +x *.sh
 ```
 
 ## 📚 Usage Examples
@@ -451,10 +490,11 @@ df -h ~/.ollama/models/
 
 ### Getting Help
 
-1. **Check logs:** `sudo journalctl -u ollama-network -f`
-2. **Test connectivity:** `./ollama.sh --test`
-3. **View examples:** `./ollama.sh --examples`
-4. **Check service status:** `sudo systemctl status ollama-network`
+1. **GitHub Issues:** https://github.com/wronai/ollama/issues
+2. **Check logs:** `sudo journalctl -u ollama-network -f`
+3. **Test connectivity:** `./ollama.sh --test`
+4. **View examples:** `./ollama.sh --examples`
+5. **Check service status:** `sudo systemctl status ollama-network`
 
 ### Useful Commands
 
@@ -475,13 +515,31 @@ tail -f /var/log/syslog | grep ollama
 
 ---
 
+## 🤝 Contributing
+
+Contributions welcome! Please feel free to submit issues and pull requests to the [GitHub repository](https://github.com/wronai/ollama/).
+
+### How to Contribute:
+
+1. **Fork the repository**
+2. **Create a feature branch:** `git checkout -b feature-name`
+3. **Make your changes**
+4. **Test thoroughly**
+5. **Submit a pull request**
+
+### Reporting Issues:
+
+- 🐛 **Bug reports:** https://github.com/wronai/ollama/issues
+- 💡 **Feature requests:** https://github.com/wronai/ollama/issues
+- 📚 **Documentation improvements:** Welcome!
+
+---
+
 ## 📄 License
 
 This project is open source. Feel free to modify and distribute.
 
-## 🤝 Contributing
-
-Contributions welcome! Please feel free to submit issues and pull requests.
+**Repository:** https://github.com/wronai/ollama/
 
 ---
 
