@@ -36,10 +36,12 @@ chmod +x *.sh
 - [Scripts](#scripts)
 - [Ollama Network Service](#ollama-network-service)
 - [SSH Connection Script](#ssh-connection-script)
+- [RK3588 GPU & NPU Support](#rk3588-gpu--npu-support)
 - [Installation](#installation)
 - [Usage Examples](#usage-examples)
 - [API Reference](#api-reference)
 - [Troubleshooting](#troubleshooting)
+- [Testing](#testing)
 
 ## 🔍 Overview
 
@@ -598,6 +600,84 @@ df -h ~/.ollama/models/
 - 🚫 Disable password authentication after key setup
 - 🔒 Use SSH agent for key management
 - 📝 Regularly rotate SSH keys
+
+## 🚀 RK3588 GPU & NPU Support
+
+This repository includes comprehensive support for RK3588's hardware acceleration capabilities, including both the Mali-G610 GPU and the Neural Processing Unit (NPU).
+
+### Key Features
+
+- **Mali-G610 GPU Support**
+  - OpenCL acceleration
+  - 3D graphics support
+  - Hardware-accelerated video processing
+
+- **RKNN NPU Support**
+  - High-performance neural network acceleration
+  - Support for TensorFlow, PyTorch, and ONNX models
+  - Optimized for computer vision and AI workloads
+
+### Getting Started
+
+1. **Install Dependencies**
+   ```bash
+   # Install GPU drivers and OpenCL
+   ./rkgpu.sh
+   
+   # Install NPU drivers and tools
+   ./rknpu.sh
+   ```
+
+2. **Verify Installation**
+   ```bash
+   # Test GPU functionality
+   ./testgpu.sh
+   
+   # Test NPU functionality
+   ./testnpu.sh
+   ```
+
+3. **Using with Ollama**
+   ```bash
+   # Enable GPU acceleration
+   OLLAMA_GPU=1 ollama serve
+   
+   # Enable NPU acceleration (experimental)
+   OLLAMA_NPU=1 ollama serve
+   ```
+
+For detailed documentation, see [RK3588 Documentation](RK.md) and [Testing Guide](Test.md).
+
+## 🧪 Testing
+
+We provide comprehensive testing tools to verify your RK3588 hardware acceleration setup:
+
+### GPU Testing (`testgpu.sh`)
+```bash
+# Run all GPU tests
+./testgpu.sh
+
+# Run specific test category
+./testgpu.sh --category opencl
+```
+
+### NPU Testing (`testnpu.sh`)
+```bash
+# Run all NPU tests
+./testnpu.sh
+
+# Test specific model
+./testnpu.sh --model path/to/model.rknn
+```
+
+### Test Coverage
+- Hardware detection
+- Driver verification
+- Performance benchmarking
+- Memory bandwidth tests
+- Model loading and inference
+
+For detailed testing documentation, see [Test.md](Test.md).
 
 ## 📞 Support
 
