@@ -628,6 +628,10 @@ This repository includes comprehensive support for RK3588's hardware acceleratio
    ./rknpu.sh
    ```
 
+[RKNPU.md](RKNPU.md)
+
+![img_1.png](img_1.png)
+
 2. **Verify Installation**
    ```bash
    # Test GPU functionality
@@ -648,6 +652,10 @@ This repository includes comprehensive support for RK3588's hardware acceleratio
 
 For detailed documentation, see [RK3588 Documentation](RK.md) and [Testing Guide](Test.md).
 
+```python
+ollama run qwen3:4b
+OLLAMA_NPU=1 ollama serve
+```
 ## 🧪 Testing
 
 We provide comprehensive testing tools to verify your RK3588 hardware acceleration setup:
@@ -726,6 +734,41 @@ stress --cpu 2 --vm 1 --vm-bytes 500M --timeout 60s
 sudo hdparm -t /dev/mmcblk0
 ```
 
+
+2. Enable and start the service:
+sudo systemctl daemon-reload
+sudo systemctl enable ollama-network.service
+sudo systemctl start ollama-network.service
+
+Check service status:
+sudo systemctl status ollama-network.service
+
+
+```python
+bash ollm.sh
+```
+
+
+
+
+
+```python
+# Stop any existing Ollama processes
+sudo pkill -f ollama || true
+
+# Start Ollama with network access on port 8081
+OLLAMA_HOST=0.0.0.0:8081 OLLAMA_ORIGINS=* ollama serve &
+
+# Allow through firewall
+sudo ufw allow 8081/tcp || true
+
+# Wait a moment, then test
+sleep 5
+curl -s http://localhost:8081/api/tags
+
+```
+
+
 ---
 
 ## 🤝 Contributing
@@ -757,3 +800,5 @@ This project is open source. Feel free to modify and distribute.
 ---
 
 **Happy coding with Ollama! 🚀🤖**
+
+
